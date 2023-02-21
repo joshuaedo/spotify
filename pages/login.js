@@ -26,7 +26,7 @@ function login({ providers }) {
             className='bg-[#18D860] text-white p-5 rounded-full'
             onClick={() =>
               signIn('spotify', {
-                callbackUrl: 'http://localhost:3000/api/auth/callback/spotify',
+                callbackUrl: '/',
               })
             }
           >
