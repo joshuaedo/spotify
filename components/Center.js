@@ -33,6 +33,8 @@ function Center() {
   const playlistId = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(playlistState);
 
+  console.log(playlist?.description);
+
   useEffect(() => {
     setColor(shuffle(colors).pop());
   }, [playlistId]);
@@ -47,8 +49,10 @@ function Center() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyApi, playlistId]);
 
+  console.log(playlist);
+
   return (
-    <div className='flex-grow h-screen overflow-y-scroll scrollbar-hide'>
+    <div className='flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]'>
       <header className='absolute top-5 right-8'>
         <div className='flex items-center bg-black space-x-3  cursor-pointer rounded-full p-1 pr-2 text-white font-bold'>
           <Image
@@ -85,20 +89,32 @@ function Center() {
         )}
       </header>
       <section
-        className={`flex items-end space-k-7 bg-gradient-to-b to-black ${color} h-80 text-white p-8 `}
+        className={`flex items-end space-k-7 bg-gradient-to-b to-[#121212] ${color} h-80 text-white p-8 `}
       >
         <Image
           src={playlist?.images?.[0].url}
-          width={176}
-          height={176}
-          className='shadow-2xl'
+          width={220}
+          height={220}
+          className='shadow-4xl mr-4'
           alt=''
         />
-        <div>
-          <p>PLAYLIST</p>
-          <h2 className='text-2xl md:text-3xl xl:5xl font-bold'>
-            {playlist?.name}
-          </h2>
+        <div className=' space-y-4'>
+          <p className='text-xs font-bold'>PLAYLIST</p>
+          <h2 className='text-2xl md:text-6xl font-bold'>{playlist?.name}</h2>
+
+          <div>
+            <p className='text-xs opacity-70'>
+              {playlist?.description.includes('href')
+                ? null
+                : playlist?.description}
+            </p>
+
+            <span className='font-bold'>{playlist?.owner.display_name} • </span>
+            <span>
+              {playlist?.followers.total.toLocaleString('en-US')} followers •{' '}
+            </span>
+            <span>{playlist?.tracks.total} songs</span>
+          </div>
         </div>
       </section>
 

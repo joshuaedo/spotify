@@ -10,7 +10,7 @@ export default function Home() {
         <meta name='description' content='A spotify clone made with Next.js' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
-      <div className='bg-black h-screen overflow-hidden'>
+      <div className='h-screen overflow-hidden'>
         <main className='flex'>
           <Sidebar />
           <Center />
