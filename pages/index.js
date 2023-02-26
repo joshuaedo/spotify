@@ -2,13 +2,12 @@ import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
 import { useState, useEffect } from 'react';
 import { shuffle } from 'lodash';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { playlistIdState, playlistState } from '@/atom/playlistAtom';
 import useSpotify from '@/hooks/useSpotify';
-import { LogoutIcon } from '@heroicons/react/solid';
+import { LogoutIcon } from '@heroicons/react/outline';
 import useDeviceSize from '@/hooks/useDeviceSize';
 import Link from 'next/link';
 
@@ -64,7 +63,7 @@ export default function Home() {
   const [width, height] = useDeviceSize();
 
   const backgroundImageUrl = {
-    url: playlist?.images?.[0].url,
+    url: session?.user.image,
   };
 
   const isMobile = width <= 767;
@@ -87,35 +86,35 @@ export default function Home() {
             </div>
           </header>
 
-          <section className={`space-y-5 bg-[#202020] h-60 text-white p-8 `}>
-            <div className='space-y-4 flex'>
-              <div className=''>
-                <Image
-                  src={session?.user.image}
-                  // fill={true}
-                  // contain={true}
-                  cover={true}
-                  width={128}
-                  height={128}
-                  aspectRatio={1 / 1}
-                  alt='User'
-                  className='rounded-full m-auto'
-                />
-              </div>
+          <section
+            className={`space-y-5 bg-[#202020] h-60   text-white p-8  `}
+            style={{
+              backgroundImage: isMobile && `url(${backgroundImageUrl.url})`,
+              backgroundSize: 'cover',
+            }}
+          >
+            <div className='pt-9 md:pt-0'>
+              <div className='space-y-4 flex'>
+                <div className=''>
+                  <Image
+                    src={session?.user.image}
+                    width={176}
+                    height={176}
+                    className='shadow-2xl hidden md:block rounded rounded-full m-auto shadow-2xl'
+                    aspectRatio={1 / 1}
+                    alt='User'
+                  />
+                </div>
 
-              <div className='lg:pl-10'>
-                <h2 className='text-6xl md:text-7xl font-bold '>
-                  Your Library
-                </h2>
-                <p className='pl-4 text-xs opacity-70'>
-                  All your {playlists?.length} favorite playlists from Spotify
-                </p>
+                <div className=' sm:mt-7 md:pl-10 '>
+                  <h2 className='text-6xl lg:text-8xl font-bold '>
+                    Your Library
+                  </h2>
+                  <p className='text-xs opacity-70'>
+                    All your {playlists?.length} favorite playlists from Spotify
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className='space-y-4 py-4 px-5 text-xl font-bold'>
-              <p className='inline border-b-2 pb-2 border-green-600 hover:animate-pulse'>
-                Playlists
-              </p>
             </div>
           </section>
 
@@ -135,9 +134,10 @@ export default function Home() {
                         width={44}
                         height={44}
                         alt={playlist.name}
+                        className='shadow-2xl'
                       />
                       <div>
-                        <p className='w-36 lg:w-64 text-white'>
+                        <p className='w-36 lg:w-64 text-white truncate'>
                           {' '}
                           {playlist.name}
                         </p>

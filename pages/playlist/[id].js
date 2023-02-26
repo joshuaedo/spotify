@@ -13,6 +13,9 @@ import Songs from '@/components/Songs';
 import { LogoutIcon } from '@heroicons/react/solid';
 import useDeviceSize from '@/hooks/useDeviceSize';
 import Head from 'next/head';
+import LibraryIcon from 'assets/images/image.webp';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const colors = [
   'from-indigo-500',
@@ -97,13 +100,45 @@ export default function Playlist() {
                 )}
               </div>
               {showDiv && (
-                <div
-                  className='flex items-center bg-black space-x-2  cursor-pointer rounded pl-3 p-2 text-white m-1 text-sm hover:opacity-90'
-                  onClick={() => signOut()}
-                >
-                  <p>Log out</p>
-                  <LogoutIcon className='h-5 w-5 hover:scale-110' />
-                </div>
+                <>
+                  <motion.div
+                    className=' bg-black space-y-2  cursor-pointer rounded p-2 text-white m-1 text-sm '
+                    initial={{
+                      opacity: 0,
+                      y: 50,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                  >
+                    <div>
+                      <Link
+                        href='/'
+                        className='hover:opacity-90 flex text-white '
+                      >
+                        <button className='flex items-center space-x-2  font-bold'>
+                          <span>Library</span>
+                          <div className='h-6 w-6'>
+                            <Image
+                              src={LibraryIcon}
+                              width={24}
+                              height={24}
+                              alt='Link to your library'
+                            />
+                          </div>
+                        </button>
+                      </Link>
+                    </div>
+                    <hr className='pr-5' />
+                    <div className='flex items-center space-x-2  font-bold hover:opacity-90'>
+                      <p>Log out</p>
+                      <div className='h-6 w-6 pr-5' onClick={() => signOut()}>
+                        <LogoutIcon width={24} height={24} alt='Log Out' />
+                      </div>
+                    </div>
+                  </motion.div>
+                </>
               )}
             </header>
             <section
@@ -117,7 +152,7 @@ export default function Playlist() {
                 src={playlist?.images?.[0].url}
                 width={220}
                 height={220}
-                className='shadow-4xl mr-4 hidden md:block rounded'
+                className='shadow-2xl mr-4 hidden md:block rounded'
                 alt=''
               />
 
@@ -168,5 +203,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-

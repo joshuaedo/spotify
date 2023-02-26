@@ -21,7 +21,7 @@ function Song({ order, track }) {
 
   return (
     <div
-      className='grid grid-cols-2 text-gray-500 py-4 px-5 hover:bg-gray-900 rounded-lg cursor-pointer'
+      className='grid grid-cols-2 text-gray-500 py-4 px-5 hover:bg-gray-900 rounded-lg cursor-pointer '
       onClick={playSong}
     >
       <div className='flex items-center space-x-4'>
@@ -31,6 +31,7 @@ function Song({ order, track }) {
           width={44}
           height={44}
           alt={track.track.album.name}
+          className='shadow-2xl'
         />
         <div>
           <p className='w-36 lg:w-64 truncate text-white'>{track.track.name}</p>

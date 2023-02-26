@@ -86,6 +86,8 @@ function Sidebar() {
           <hr className='border-t-(0.1px) border-gray-900 mr-9 pb-5' />
         </div>
 
+     
+
         <div className='playlists space-y-4 pb-5'>
           {playlists.map((playlist) => (
             <p

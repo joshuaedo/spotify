@@ -22,7 +22,7 @@ function login({ providers }) {
 
         <div>
           <button
-            className='bg-[#13a34a] text-gray-200 p-5 rounded-full'
+            className='bg-[#13a34a] text-gray-200 p-5 rounded-full shadow-inner font-semibold hover:bg-[#13a33a]'
             onClick={() =>
               signIn('spotify', {
                 callbackUrl: '/',
