@@ -45,36 +45,40 @@ function Sidebar() {
               alt='spotify-logo'
             />
           </Link>
-          <button className='flex items-center space-x-2 text-white font-bold'>
+          <button className='flex items-center space-x-2 font-bold'>
             <HomeIcon className='h-6 w-6' />
             <p>Home</p>
           </button>
-          <button className='flex items-center space-x-2 text-white font-bold'>
+          <button className='flex items-center space-x-2  font-bold'>
             <SearchIcon className='h-6 w-6' />
             <p>Search</p>
           </button>
-          <button className='flex items-center space-x-2 text-white font-bold'>
-            <LibraryIcon className='h-6 w-6' />
-            <p>Your Library</p>
-          </button>
+
+          <Link href='/' className='flex hover:text-white'>
+            <button className='flex items-center space-x-2  font-bold'>
+              <LibraryIcon className='h-6 w-6' />
+              <span> Your Library</span>
+            </button>
+          </Link>
 
           <hr className='border-t-(0.1px) border-black' />
 
-          <button className='flex items-center space-x-2 text-white font-bold'>
+          <button className='flex items-center space-x-2 font-bold'>
             <PlusCircleIcon className='h-6 w-6' />
             <p>Create Playlist</p>
           </button>
-          <button className='flex items-center space-x-2 text-white font-bold'>
+          <button className='flex items-center space-x-2 font-bold'>
             <HeartIcon className='h-6 w-6' />
             <p>Liked Songs</p>
           </button>
-          <button className='flex items-center space-x-2 text-white font-bold'>
+          <button className='flex items-center space-x-2 font-bold'>
             <RssIcon className='h-6 w-6' />
             <p>Your Episodes</p>
           </button>
 
           <hr className='border-t-(0.1px) border-gray-900 mr-9 pb-5' />
         </div>
+
         <div className='playlists space-y-4'>
           {playlists.map((playlist) => (
             <p
