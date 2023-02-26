@@ -78,51 +78,44 @@ export default function Home() {
       <div className='h-screen overflow-hidden'>
         <div className='center flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]'>
           <header className='absolute top-5 right-8'>
-            <div className='flex items-center bg-black space-x-3  cursor-pointer rounded-full p-1 pr-2 text-white font-bold'>
-              <Image
-                src={session?.user.image}
-                // fill={true}
-                // contain={true}
-                width={27}
-                height={27}
-                alt='User'
-                className='rounded-full'
-              />
-              <h2>{session?.user.name}</h2>
-              {showDiv ? (
-                <ChevronUpIcon
-                  className='h-5 w-5 opacity-90 hover:opacity-60'
-                  onClick={toggleDiv}
-                />
-              ) : (
-                <ChevronDownIcon
-                  className='h-5 w-5 opacity-90 hover:opacity-60'
-                  onClick={toggleDiv}
-                />
-              )}
+            <div
+              className='flex items-center bg-[#121212] space-x-2  cursor-pointer rounded pl-3 p-2 text-white m-1 text-sm hover:opacity-80'
+              onClick={() => signOut()}
+            >
+              <p>Log out</p>
+              <LogoutIcon className='h-5 w-5 hover:scale-110' />
             </div>
-            {showDiv && (
-              <div
-                className='flex items-center bg-black space-x-2  cursor-pointer rounded pl-3 p-2 text-white m-1 text-sm hover:opacity-90'
-                onClick={() => signOut()}
-              >
-                <p>Log out</p>
-                <LogoutIcon className='h-5 w-5 hover:scale-110' />
-              </div>
-            )}
           </header>
 
-          <section
-            className={`flex items-end space-k-7 bg-gradient-to-b to-[#121212] ${color} h-80 text-white p-8 `}
-          >
-            <div className='space-y-4'>
-              <h2 className='text-7xl lg:text-9xl font-bold'>Your Library</h2>
+          <section className={`space-y-5 bg-[#202020] h-60 text-white p-8 `}>
+            <div className='space-y-4 flex'>
+              <div className=''>
+                <Image
+                  src={session?.user.image}
+                  // fill={true}
+                  // contain={true}
+                  cover={true}
+                  width={128}
+                  height={128}
+                  aspectRatio={1 / 1}
+                  alt='User'
+                  className='rounded-full m-auto'
+                />
+              </div>
 
-              <div>
-                <p className='text-xs opacity-70'>
+              <div className='lg:pl-10'>
+                <h2 className='text-6xl md:text-7xl font-bold '>
+                  Your Library
+                </h2>
+                <p className='pl-4 text-xs opacity-70'>
                   All your {playlists?.length} favorite playlists from Spotify
                 </p>
               </div>
+            </div>
+            <div className='space-y-4 py-4 px-5 text-xl font-bold'>
+              <p className='inline border-b-2 pb-2 border-green-600 hover:animate-pulse'>
+                Playlists
+              </p>
             </div>
           </section>
 
@@ -149,7 +142,9 @@ export default function Home() {
                           {playlist.name}
                         </p>
                         <p className='truncate'>
-                          {playlist.owner.display_name}
+                          by{' '}
+                          {playlist.owner.display_name &&
+                            playlist.owner.display_name.toLowerCase()}
                         </p>
                       </div>
                     </div>

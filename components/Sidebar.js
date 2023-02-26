@@ -3,7 +3,6 @@ import useSpotify from '@/hooks/useSpotify';
 import {
   HomeIcon,
   SearchIcon,
-  LibraryIcon,
   HeartIcon,
   RssIcon,
   PlusCircleIcon,
@@ -12,6 +11,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import spotifylogo from 'assets/images/spotify-logo.png';
+import LibraryIcon from 'assets/images/image.webp';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -54,9 +54,16 @@ function Sidebar() {
             <p>Search</p>
           </button>
 
-          <Link href='/' className='flex hover:text-white'>
+          <Link href='/' className='flex text-white hover:opacity-90'>
             <button className='flex items-center space-x-2  font-bold'>
-              <LibraryIcon className='h-6 w-6' />
+              <div className='h-6 w-6'>
+                <Image
+                  src={LibraryIcon}
+                  width={24}
+                  height={24}
+                  alt='Link to your library'
+                />
+              </div>
               <span> Your Library</span>
             </button>
           </Link>
@@ -79,12 +86,12 @@ function Sidebar() {
           <hr className='border-t-(0.1px) border-gray-900 mr-9 pb-5' />
         </div>
 
-        <div className='playlists space-y-4'>
+        <div className='playlists space-y-4 pb-5'>
           {playlists.map((playlist) => (
             <p
               key={playlist.id}
               onClick={() => setPlaylistId(playlist.id)}
-              className='cursor-pointer hover:text-white'
+              className='cursor-pointer hover:text-white pr-1'
             >
               {playlist.name}
             </p>
