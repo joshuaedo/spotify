@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .button {
+    @apply h-4 w-4 cursor-pointer;
+  }
+  .stay {
+    @apply flex items-center px-5;
+  }
+  .res-icon {
+    @apply hidden md:inline
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
