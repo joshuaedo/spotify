@@ -1,16 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { getSession } from 'next-auth/react';
 import Sidebar from '@/components/Sidebar';
 import Player from '@/components/Player';
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  LogoutIcon,
+} from '@heroicons/react/solid';
 import { useState, useEffect } from 'react';
 import { shuffle } from 'lodash';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { playlistIdState, playlistState } from '@/atom/playlistAtom';
 import useSpotify from '@/hooks/useSpotify';
 import Songs from '@/components/Songs';
-import { LogoutIcon } from '@heroicons/react/solid';
 import useDeviceSize from '@/hooks/useDeviceSize';
 import Head from 'next/head';
 import LibraryIcon from 'assets/images/image.webp';
@@ -30,13 +34,6 @@ export default function Playlist() {
     'from-orange-500',
     'from-red-500',
   ];
-
-  const [showDiv, setShowDiv] = useState(false);
-
-  const toggleDiv = () => {
-    setShowDiv(!showDiv);
-  };
-
   const { data: session } = useSession();
   const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
@@ -49,7 +46,10 @@ export default function Playlist() {
   };
   const songInfo = useSongInfo();
   const [pageTitle, setPageTitle] = useState(songInfo?.album.name);
-
+  const [showDiv, setShowDiv] = useState(false);
+  const toggleDiv = () => {
+    setShowDiv(!showDiv);
+  };
   console.log(songInfo);
 
   useEffect(() => {
@@ -58,7 +58,6 @@ export default function Playlist() {
     } else {
       setPageTitle(songInfo?.name + ' • ' + songInfo?.artists[0].name);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlayingState, playlist?.name, songInfo?.album.name]);
 
   useEffect(() => {
@@ -72,7 +71,6 @@ export default function Playlist() {
         setPlaylist(data.body);
       })
       .catch((err) => console.error('something went wrong', err));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyApi, playlistId]);
 
   return (
@@ -84,8 +82,10 @@ export default function Playlist() {
       </Head>
       <div className='h-screen overflow-hidden'>
         <main className='flex'>
+          {/* Sidebar */}
           <Sidebar />
           <div className='center flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]'>
+            {/* Drop-Down Toggle Menu */}
             <header className='absolute top-5 right-8'>
               <div className='flex items-center bg-black space-x-3  cursor-pointer rounded-full p-1 pr-2 text-white font-bold'>
                 <Image
@@ -153,6 +153,8 @@ export default function Playlist() {
                 </>
               )}
             </header>
+
+            {/* Hero */}
             <section
               className={`flex items-end space-k-7 bg-gradient-to-b to-[#121212] ${color} h-80 text-white p-8 `}
               style={{
@@ -193,11 +195,14 @@ export default function Playlist() {
               </div>
             </section>
 
+            {/* Songs */}
             <div>
               <Songs />
             </div>
           </div>
         </main>
+
+        {/* Player */}
         <div className='sticky bottom-0'>
           <Player />
         </div>
