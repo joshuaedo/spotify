@@ -16,19 +16,21 @@ import Head from 'next/head';
 import LibraryIcon from 'assets/images/image.webp';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-
-const colors = [
-  'from-indigo-500',
-  'from-blue-500',
-  'from-green-500',
-  'from-yellow-500',
-  'from-purple-500',
-  'from-pink-500',
-  'from-orange-500',
-  'from-red-500',
-];
+import { isPlayingState } from '@/atom/songAtom';
+import useSongInfo from '@/hooks/useSongInfo';
 
 export default function Playlist() {
+  const colors = [
+    'from-indigo-500',
+    'from-blue-500',
+    'from-green-500',
+    'from-yellow-500',
+    'from-purple-500',
+    'from-pink-500',
+    'from-orange-500',
+    'from-red-500',
+  ];
+
   const [showDiv, setShowDiv] = useState(false);
 
   const toggleDiv = () => {
@@ -40,6 +42,24 @@ export default function Playlist() {
   const [color, setColor] = useState(null);
   const playlistId = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(playlistState);
+  const [width, height] = useDeviceSize();
+  const isMobile = width <= 767;
+  const backgroundImageUrl = {
+    url: playlist?.images?.[0].url,
+  };
+  const songInfo = useSongInfo();
+  const [pageTitle, setPageTitle] = useState(songInfo?.album.name);
+
+  console.log(songInfo);
+
+  useEffect(() => {
+    if (!isPlayingState) {
+      setPageTitle(playlist?.name);
+    } else {
+      setPageTitle(songInfo?.name + ' • ' + songInfo?.artists[0].name);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPlayingState, playlist?.name, songInfo?.album.name]);
 
   useEffect(() => {
     setColor(shuffle(colors).pop());
@@ -55,18 +75,10 @@ export default function Playlist() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyApi, playlistId]);
 
-  const [width, height] = useDeviceSize();
-
-  const backgroundImageUrl = {
-    url: playlist?.images?.[0].url,
-  };
-
-  const isMobile = width <= 767;
-
   return (
     <>
       <Head>
-        <title>{playlist?.name}</title>
+        <title>{pageTitle}</title>
         <meta name='description' content='A spotify clone made with Next.js' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>

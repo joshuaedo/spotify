@@ -100,7 +100,7 @@ export default function Home() {
                     src={session?.user.image}
                     width={176}
                     height={176}
-                    className='shadow-2xl hidden md:block rounded rounded-full m-auto shadow-2xl'
+                    className=' hidden md:block rounded-full m-auto shadow-2xl'
                     aspectRatio={1 / 1}
                     alt='User'
                   />
@@ -126,7 +126,7 @@ export default function Home() {
                   key={playlist.id}
                   onClick={() => setPlaylistId(playlist.id)}
                 >
-                  <div className='grid grid-cols-5 text-gray-500 py-4 px-5 hover:bg-gray-900 rounded-lg cursor-pointer'>
+                  <div className='grid grid-cols-5 text-gray-500 py-4 px-5 hover:bg-[#282828] rounded-lg cursor-pointer'>
                     <div className='flex items-center truncate space-x-4 col-span-4'>
                       <p>{order + 1}</p>
                       <Image
