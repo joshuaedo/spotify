@@ -18,10 +18,13 @@ import Songs from '@/components/Songs';
 import useDeviceSize from '@/hooks/useDeviceSize';
 import Head from 'next/head';
 import LibraryIcon from 'assets/images/image.webp';
+import Favorite from 'assets/icons/favorite.png';
+import Play from 'assets/icons/play.png';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { isPlayingState } from '@/atom/songAtom';
 import useSongInfo from '@/hooks/useSongInfo';
+// import WebPackPlayer from '@/components/WebPackPlayer';
 
 export default function Playlist() {
   const colors = [
@@ -39,6 +42,11 @@ export default function Playlist() {
   const [color, setColor] = useState(null);
   const playlistId = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(playlistState);
+  const playPlaylist = () => {
+    spotifyApi.play({
+      context_uri: `https://open.spotify.com/playlist/${playlist.id}`,
+    });
+  };
   const [width, height] = useDeviceSize();
   const isMobile = width <= 767;
   const backgroundImageUrl = {
@@ -50,7 +58,6 @@ export default function Playlist() {
   const toggleDiv = () => {
     setShowDiv(!showDiv);
   };
-  console.log(songInfo);
 
   useEffect(() => {
     if (!isPlayingState) {
@@ -62,6 +69,7 @@ export default function Playlist() {
 
   useEffect(() => {
     setColor(shuffle(colors).pop());
+    setPageTitle(playlist?.name);
   }, [playlistId]);
 
   useEffect(() => {
@@ -197,15 +205,36 @@ export default function Playlist() {
 
             {/* Songs */}
             <div>
+              <div className='flex space-x-4 md:space-x-6 items-center'>
+                <Image
+                  src={Play}
+                  alt='Playlist'
+                  className='cursor-pointer animate-bounce'
+                  onClick={playPlaylist}
+                />
+                <Image
+                  src={Favorite}
+                  alt='Favorite'
+                  contain={true}
+                  className='w-10 h-10 hidden md:inline'
+                />
+                <span className='text-2xl md:text-5xl text-gray-500 pb-5 hover:text-white hidden md:inline'>
+                  ...
+                </span>
+              </div>
               <Songs />
             </div>
           </div>
         </main>
 
-        {/* Player */}
+        {/* Default Player */}
         <div className='sticky bottom-0'>
           <Player />
         </div>
+        {/* WebPack Player */}
+        {/* <div>
+          <WebPackPlayer />
+        </div> */}
       </div>
     </>
   );

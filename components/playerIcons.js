@@ -1,7 +1,7 @@
 import connectDevice from '@/assets/icons/Connect to a device.png';
 import fullScreen from '@/assets/icons/Full screen.png';
-import like from '@/assets/icons/Like.png';
-import lyrics from '@/assets/icons/Lyrics.png';
+import like from '@/assets/icons/like.png';
+import myLyrics from '@/assets/icons/Lyrics.png';
 import next from '@/assets/icons/Next.png';
 import previous from '@/assets/icons/Previous.png';
 import queue from '@/assets/icons/Queue.png';
@@ -19,8 +19,8 @@ export const playerIcons = [
   shuffle,
   volumeIcon,
   fullScreen,
-  lyrics,
+  myLyrics,
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { playerIcons, };
+export default { playerIcons };

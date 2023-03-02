@@ -11,6 +11,7 @@ export default function Document() {
           rel='stylesheet'
         />
         <link rel='icon' href='/favicon.ico' />
+        <link rel='preconnect' href='https://sdk.scdn.co' />
       </Head>
       <body>
         <Main />
