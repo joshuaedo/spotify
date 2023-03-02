@@ -10,7 +10,7 @@
     @apply flex items-center px-5;
   }
   .res-icon {
-    @apply hidden md:inline
+    @apply hidden lg:inline;
   }
 }
 
