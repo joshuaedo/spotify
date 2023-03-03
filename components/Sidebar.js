@@ -45,11 +45,11 @@ function Sidebar() {
               alt='spotify-logo'
             />
           </Link>
-          <button className='flex items-center space-x-2 font-bold'>
-            <HomeIcon className='h-6 w-6' />
+          <button className='flex items-center space-x-2 font-bold cursor-not-allowed'>
+            <HomeIcon className='h-6 w-6 ' />
             <p>Home</p>
           </button>
-          <button className='flex items-center space-x-2  font-bold'>
+          <button className='flex items-center space-x-2  font-bold cursor-not-allowed'>
             <SearchIcon className='h-6 w-6' />
             <p>Search</p>
           </button>
@@ -70,15 +70,15 @@ function Sidebar() {
 
           <hr className='border-t-(0.1px) border-black' />
 
-          <button className='flex items-center space-x-2 font-bold'>
+          <button className='flex items-center space-x-2 font-bold cursor-not-allowed'>
             <PlusCircleIcon className='h-6 w-6' />
             <p>Create Playlist</p>
           </button>
-          <button className='flex items-center space-x-2 font-bold'>
+          <button className='flex items-center space-x-2 font-bold cursor-not-allowed'>
             <HeartIcon className='h-6 w-6' />
             <p>Liked Songs</p>
           </button>
-          <button className='flex items-center space-x-2 font-bold'>
+          <button className='flex items-center space-x-2 font-bold cursor-not-allowed'>
             <RssIcon className='h-6 w-6' />
             <p>Your Episodes</p>
           </button>

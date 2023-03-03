@@ -24,6 +24,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { isPlayingState } from '@/atom/songAtom';
 import useSongInfo from '@/hooks/useSongInfo';
+import useSDK from '@/hooks/useSDK';
 // import WebPackPlayer from '@/components/WebPackPlayer';
 
 export default function Playlist() {
@@ -42,21 +43,21 @@ export default function Playlist() {
   const [color, setColor] = useState(null);
   const playlistId = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(playlistState);
+  const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+  const [width, height] = useDeviceSize();
+  const isMobile = width <= 767;
+  const songInfo = useSongInfo();
+  const [pageTitle, setPageTitle] = useState(songInfo?.album.name);
+  const [showDiv, setShowDiv] = useState(false);
+
+  const toggleDiv = () => {
+    setShowDiv(!showDiv);
+  };
   const playPlaylist = () => {
     spotifyApi.play({
       context_uri: `https://open.spotify.com/playlist/${playlist.id}`,
     });
-  };
-  const [width, height] = useDeviceSize();
-  const isMobile = width <= 767;
-  const backgroundImageUrl = {
-    url: playlist?.images?.[0].url,
-  };
-  const songInfo = useSongInfo();
-  const [pageTitle, setPageTitle] = useState(songInfo?.album.name);
-  const [showDiv, setShowDiv] = useState(false);
-  const toggleDiv = () => {
-    setShowDiv(!showDiv);
+    setIsPlaying(true);
   };
 
   useEffect(() => {
@@ -66,12 +67,10 @@ export default function Playlist() {
       setPageTitle(songInfo?.name + ' • ' + songInfo?.artists[0].name);
     }
   }, [isPlayingState, playlist?.name, songInfo?.album.name]);
-
   useEffect(() => {
     setColor(shuffle(colors).pop());
     setPageTitle(playlist?.name);
   }, [playlistId]);
-
   useEffect(() => {
     spotifyApi
       .getPlaylist(playlistId)
@@ -94,12 +93,10 @@ export default function Playlist() {
           <Sidebar />
           <div className='center flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]'>
             {/* Drop-Down Toggle Menu */}
-            <header className='absolute top-5 right-8'>
+            <header className='absolute top-3 right-3'>
               <div className='flex items-center bg-black space-x-3  cursor-pointer rounded-full p-1 pr-2 text-white font-bold'>
                 <Image
                   src={session?.user.image}
-                  // fill={true}
-                  // contain={true}
                   width={27}
                   height={27}
                   alt='User'
@@ -164,9 +161,10 @@ export default function Playlist() {
 
             {/* Hero */}
             <section
-              className={`flex items-end space-k-7 bg-gradient-to-b to-[#121212] ${color} h-80 text-white p-8 `}
+              className={`flex items-end bg-gradient-to-b to-[#121212] ${color} h-80 text-white p-8 `}
               style={{
-                backgroundImage: isMobile && `url(${backgroundImageUrl.url})`,
+                backgroundImage:
+                  isMobile && `url(${playlist?.images?.[0].url})`,
                 backgroundSize: 'cover',
               }}
             >
@@ -203,7 +201,6 @@ export default function Playlist() {
               </div>
             </section>
 
-            {/* Songs */}
             <div>
               <div className='flex space-x-4 md:space-x-6 items-center'>
                 <Image
@@ -215,12 +212,13 @@ export default function Playlist() {
                 <Image
                   src={Favorite}
                   alt='Favorite'
-                  contain={true}
+                  contain='true'
                   className='w-10 h-10 hidden md:inline'
                 />
                 <span className='text-2xl md:text-5xl text-gray-500 pb-5 hover:text-white hidden md:inline'>
                   ...
                 </span>
+                {/* Songs */}
               </div>
               <Songs />
             </div>
@@ -229,6 +227,7 @@ export default function Playlist() {
 
         {/* Default Player */}
         <div className='sticky bottom-0'>
+          {/* <useSDK /> */}
           <Player />
         </div>
         {/* WebPack Player */}
