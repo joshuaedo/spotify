@@ -119,7 +119,7 @@ export default function Home() {
           </section>
 
           <div>
-            <div className='px-3 md:px-8 flex flex-col pb-28 space-y-1 text-white'>
+            <div className='px-1 md:px-8 flex flex-col pb-28 space-y-1 text-white'>
               {playlists?.map((playlist, order) => (
                 <Link
                   href={`/playlist/${playlist.id}`}
