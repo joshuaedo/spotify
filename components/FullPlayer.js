@@ -8,8 +8,6 @@ import useSongInfo from '@/hooks/useSongInfo';
 import { playerIcons } from './playerIcons';
 import { ChevronDownIcon, PauseIcon, PlayIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';
-import { debounce } from 'lodash';
-import { useSession } from 'next-auth/react';
 import { shuffle } from 'lodash';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { playlistIdState, playlistState } from '@/atom/playlistAtom';
@@ -38,42 +36,12 @@ export default function FullPlayer(props) {
     myLyrics,
     favorite,
   ] = playerIcons;
-  const { data: session } = useSession();
   const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
   const playlistId = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(playlistState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const songInfo = useSongInfo();
-  const [currentTrackId, setCurrentTrackId] =
-    useRecoilState(currentTrackIdState);
-  const [volume, setVolume] = useState(50);
-  const debouncedAdjustVolume = useCallback(
-    debounce((volume) => {
-      spotifyApi.setVolume(volume).catch((err) => {});
-    }, 500),
-    []
-  );
-  const [isLyricsPlayer, setLyricsPlayer] = useState(false);
-  const toggleLyricsPlayer = () => {
-    setLyricsPlayer(!isLyricsPlayer);
-  };
-  const [isMediaShare, setIsMediaShare] = useState(false);
-  const toggleMediaShare = () => {
-    setIsMediaShare(!isMediaShare);
-  };
-  const fetchCurrentSong = () => {
-    if (!songInfo) {
-      spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-        setCurrentTrackId(data.body?.item.id);
-        console.log('Now playing:', data.body?.item);
-
-        spotifyApi.getMyCurrentPlaybackState().then((data) => {
-          setIsPlaying(data.body?.is_playing);
-        });
-      });
-    }
-  };
   const handlePlayPause = () => {
     spotifyApi.getMyCurrentPlaybackState().then((data) => {
       if (data.body?.is_playing) {
@@ -104,44 +72,26 @@ export default function FullPlayer(props) {
       }
     });
   };
-
   useEffect(() => {
     setColor(shuffle(colors).pop());
-  }, [playlistId]);
-  useEffect(() => {
-    spotifyApi
-      .getPlaylist(playlistId)
-      .then((data) => {
-        setPlaylist(data.body);
-      })
-      .catch((err) => console.error('something went wrong', err));
-  }, [spotifyApi, playlistId]);
-  useEffect(() => {
-    if (volume > 0 && volume < 100) {
-      debouncedAdjustVolume(volume);
-    }
-  }, [volume]);
-  useEffect(() => {
-    if (spotifyApi.getAccessToken()) {
-      fetchCurrentSong();
-      setVolume(50);
-    }
-  }, [currentTrackId, spotifyApi, session, songInfo]);
+  }, [songInfo]);
+
+ 
 
   return (
     <div className='text-white flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]'>
       <header className='absolute inset-x-0 top-0 flex space-x-3 space-y-5 justify-evenly md:justify-start'>
         <div className='flex '>
           <ChevronDownIcon
-            className='h-5 w-5 lg:h-10 lg:w-10 place-self-center '
+            className='h-5 w-5 md:h-10 md:w-10 place-self-center cursor-pointer hover:opacity-75'
             onClick={props.toggleFullScreen}
           />{' '}
         </div>
         <div className='opacity-70 text-center md:text-start'>
           <p className='text-xs font-bold inline-block'>
-            PLAYING FROM PLAYLIST
+            PLAYING FROM ALBUM
           </p>
-          <p> {playlist?.name}</p>
+          <p> {songInfo?.album?.name}</p>
         </div>
 
         <div className='flex p-1'>
@@ -226,7 +176,6 @@ export default function FullPlayer(props) {
           </div>
         </div>
       </section>
-      
     </div>
   );
 }

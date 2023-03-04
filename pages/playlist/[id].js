@@ -79,6 +79,7 @@ export default function Playlist() {
       })
       .catch((err) => console.error('something went wrong', err));
   }, [spotifyApi, playlistId]);
+  
 
   return (
     <>

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import useSongInfo from '@/hooks/useSongInfo';
 import { playerIcons } from './playerIcons';
 import {
-  ChevronDownIcon,
   PauseIcon,
   PlayIcon,
   VolumeOffIcon,
@@ -20,6 +19,7 @@ import { shuffle } from 'lodash';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { playlistIdState, playlistState } from '@/atom/playlistAtom';
 import FullPlayer from './FullPlayer';
+import Lyrics from './Lyrics';
 
 export default function Player() {
   const colors = [
@@ -48,7 +48,7 @@ export default function Player() {
   const { data: session } = useSession();
   const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
-  const playlistId = useRecoilValue(playlistIdState);
+  const [ playlistId, setPlaylistId ] = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(playlistState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const songInfo = useSongInfo();
@@ -76,18 +76,6 @@ export default function Player() {
   const [isMediaShare, setIsMediaShare] = useState(false);
   const toggleMediaShare = () => {
     setIsMediaShare(!isMediaShare);
-  };
-  const fetchCurrentSong = () => {
-    if (!songInfo) {
-      spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-        setCurrentTrackId(data.body?.item.id);
-        console.log('Now playing:', data.body?.item);
-
-        spotifyApi.getMyCurrentPlaybackState().then((data) => {
-          setIsPlaying(data.body?.is_playing);
-        });
-      });
-    }
   };
   const handlePlayPause = () => {
     spotifyApi.getMyCurrentPlaybackState().then((data) => {
@@ -122,10 +110,19 @@ export default function Player() {
   const toggleLike = () => {
     setShowLike(!showLike);
   };
+  const fetchCurrentSong = () => {
+    spotifyApi.getMyCurrentPlayingTrack().then((data) => {
+      setCurrentTrackId(data.body?.item.id);
+      console.log('Now playing this song:', data.body?.item);
 
+      spotifyApi.getMyCurrentPlaybackState().then((data) => {
+        setIsPlaying(data.body?.is_playing);
+      });
+    });
+  };
   useEffect(() => {
     if (!isPlayingState) {
-      setPageTitle(playlist?.name);
+    setPageTitle(playlist?.name);
     } else {
       setPageTitle(songInfo?.name + ' • ' + songInfo?.artists[0].name);
     }
@@ -135,57 +132,30 @@ export default function Player() {
     setPageTitle(playlist?.name);
   }, [playlistId]);
   useEffect(() => {
-    spotifyApi
-      .getPlaylist(playlistId)
-      .then((data) => {
-        setPlaylist(data.body);
-      })
-      .catch((err) => console.error('something went wrong', err));
-  }, [spotifyApi, playlistId]);
+    const fetchData = () => {
+      fetchCurrentSong();
+    };
+
+    // Call the fetchData function immediately
+    fetchData();
+
+    // Call the fetchData function every 5 seconds
+    const intervalId = setInterval(fetchData, 5000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [spotifyApi, playlistId, currentTrackId, session, songInfo]);
   useEffect(() => {
     if (volume > 0 && volume < 100) {
       debouncedAdjustVolume(volume);
     }
   }, [volume]);
-  useEffect(() => {
-    if (spotifyApi.getAccessToken()) {
-      fetchCurrentSong();
-      setVolume(50);
-    }
-  }, [currentTrackId, spotifyApi, session, songInfo]);
 
   return (
     <>
       {/* Lyrics Player */}
       {isLyricsPlayer && (
-        <motion.div className='fixed inset-0 z-20 h-screen'>
-          <div
-            className='absolute inset-0 bg-black bg-contain p-10'
-            style={{
-              backgroundImage: `url(${songInfo?.album.images?.[0]?.url})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}
-            initial={{
-              opacity: 0,
-              y: -150,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-          >
-            <div className='absolute inset-0 bg-black opacity-60'>
-              <ChevronDownIcon className='h-10 w-10 text-white p-1 m-3 md:m-5' />
-              {/* <div
-                className='text-white text-center'
-                style={{ whiteSpace: 'pre' }}
-              >
-                {lyrics}
-              </div> */}
-            </div>
-          </div>
-        </motion.div>
+       <Lyrics toggleLyricsPlayer={toggleLyricsPlayer}/>
       )}
 
       {/* Fullscreen Player */}
@@ -267,7 +237,7 @@ export default function Player() {
                   d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15'
                 />
               </svg>
-              <div className='absolute inset-y-0 right-0 flex pt-5 md:hidden'>
+              <div className='absolute inset-y-0 right-0 flex pt-5 pr-5 md:hidden'>
                 {isPlaying ? (
                   <PauseIcon
                     onClick={handlePlayPause}
