@@ -26,9 +26,7 @@ import {
 
 import { ChevronDownIcon } from '@heroicons/react/outline';
 
-// Make sure to swap the values of these two consts after first deploy
-const shareUrl = `https://www.joshuaedo.netlify.app`;
-const testUrl = `https://www.joshuaedo-spotify.vercel.app`;
+const shareUrl = `https://joshuaedo-spotify.vercel.app`;
 
 export default function MediaShare(props) {
   return (
