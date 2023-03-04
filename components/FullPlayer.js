@@ -107,7 +107,7 @@ export default function FullPlayer(props) {
         className={`grid md:flex bg-gradient-to-b to-[#121212] ${color} text-white p-8 h-2/3 md:h-5/6`}
       >
         <motion.div
-          className='space-y-6 place-self-center md:place-self-end block md:flex'
+          className='space-y-6 place-self-center md:place-self-end block md:flex mt-2 pt-2'
           initial={{
             opacity: 0,
             y: -50,
