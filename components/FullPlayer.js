@@ -123,7 +123,7 @@ export default function FullPlayer(props) {
               alt={songInfo?.name}
               width={220}
               height={220}
-              className='h-96 w-96 md:h-36 md:w-36 shadow-2xl mr-0 md:mr-4 rounded '
+              className='h-72 w-72 md:h-36 md:w-36 shadow-2xl mr-0 md:mr-4 rounded '
             />
           </div>
           <div className='font-bold md:place-self-center'>
@@ -137,7 +137,7 @@ export default function FullPlayer(props) {
 
       <section>
         <div className=''>
-          <div className='stay space-x-10 items-center justify-center p-3 m-1'>
+          <div className='stay space-x-10 items-center justify-center p-3 m-1 mt-3'>
             <Image
               src={shuffleIcon}
               alt='shuffle'
