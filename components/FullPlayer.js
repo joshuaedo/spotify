@@ -87,8 +87,8 @@ export default function FullPlayer(props) {
             onClick={props.toggleFullScreen}
           />{' '}
         </div>
-        <div className='opacity-70 text-center md:text-start'>
-          <p className='text-xs font-bold inline-block'>
+        <div className='opacity-70 text-center md:text-start text-xs'>
+          <p className='font-bold inline-block'>
             PLAYING FROM ALBUM
           </p>
           <p> {songInfo?.album?.name}</p>
@@ -107,7 +107,7 @@ export default function FullPlayer(props) {
         className={`grid md:flex bg-gradient-to-b to-[#121212] ${color} text-white p-8 h-2/3 md:h-5/6`}
       >
         <motion.div
-          className='space-y-6 place-self-center md:place-self-end block md:flex mt-3 pt-4'
+          className='space-y-6 place-self-center md:place-self-end block md:flex mt-6 pt-6 md:mt-1 md:pt-1'
           initial={{
             opacity: 0,
             y: -50,
