@@ -227,7 +227,7 @@ export default function Playlist() {
         </main>
 
         {/* Default Player */}
-        <div className='sticky bottom-0'>
+        <div className='absolute bottom-0'>
           {/* <useSDK /> */}
           <Player />
         </div>
