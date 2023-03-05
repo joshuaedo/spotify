@@ -10,6 +10,8 @@ import useSpotify from '@/hooks/useSpotify';
 import { LogoutIcon } from '@heroicons/react/outline';
 import useDeviceSize from '@/hooks/useDeviceSize';
 import Link from 'next/link';
+import Player from '@/components/Player';
+// import WebPackPlayer from '@/components/WebPackPlayer';
 
 const colors = [
   'from-indigo-500',
@@ -160,6 +162,13 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {/* Default Player */}
+        <Player />
+
+        {/* WebPack Player */}
+        {/* <div>
+          <WebPackPlayer />
+        </div> */}
       </div>
     </>
   );

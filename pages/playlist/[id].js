@@ -24,7 +24,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { isPlayingState } from '@/atom/songAtom';
 import useSongInfo from '@/hooks/useSongInfo';
-import useSDK from '@/hooks/useSDK';
 // import WebPackPlayer from '@/components/WebPackPlayer';
 
 export default function Playlist() {
@@ -227,14 +226,13 @@ export default function Playlist() {
         </main>
 
         {/* Default Player */}
-        <div className='absolute inset-x-0 bottom-0'>
-          {/* <useSDK /> */}
           <Player />
-        </div>
+   
         {/* WebPack Player */}
         {/* <div>
           <WebPackPlayer />
         </div> */}
+
       </div>
     </>
   );

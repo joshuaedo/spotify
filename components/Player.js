@@ -77,6 +77,9 @@ export default function Player() {
   const toggleMediaShare = () => {
     setIsMediaShare(!isMediaShare);
   };
+
+
+
   const handlePlayPause = () => {
     spotifyApi.getMyCurrentPlaybackState().then((data) => {
       if (data.body?.is_playing) {
@@ -107,6 +110,8 @@ export default function Player() {
       }
     });
   };
+
+
   const toggleLike = () => {
     setShowLike(!showLike);
   };
@@ -185,7 +190,7 @@ export default function Player() {
       {/* Default Player */}
       {songInfo && (
         <div
-          className='h-24 bg-[#181818] text-white grid '
+          className='sticky inset-x-0 bottom-0 h-24 bg-[#181818] text-white grid '
           onDoubleClick={toggleFullScreen}
         >
           <div className='stay space-x-4 grid grid-cols-4 md:grid-cols-3 gap-0 md:gap-12 px-0 md:px-2'>
