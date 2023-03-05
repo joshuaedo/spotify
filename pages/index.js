@@ -1,27 +1,28 @@
-import { getSession } from 'next-auth/react';
-import Head from 'next/head';
-import Image from 'next/image';
-import { signOut, useSession } from 'next-auth/react';
-import { useState, useEffect } from 'react';
-import { shuffle } from 'lodash';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { playlistIdState, playlistState } from '@/atom/playlistAtom';
-import useSpotify from '@/hooks/useSpotify';
-import { LogoutIcon } from '@heroicons/react/outline';
-import useDeviceSize from '@/hooks/useDeviceSize';
-import Link from 'next/link';
-import Player from '@/components/Player';
+import { getSession } from "next-auth/react";
+import Head from "next/head";
+import Image from "next/image";
+import { signOut, useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { shuffle } from "lodash";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { playlistIdState, playlistState } from "@/atom/playlistAtom";
+import useSpotify from "@/hooks/useSpotify";
+import { LogoutIcon } from "@heroicons/react/outline";
+import useDeviceSize from "@/hooks/useDeviceSize";
+import Link from "next/link";
+import Player from "@/components/Player";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import WebPackPlayer from '@/components/WebPackPlayer';
 
 const colors = [
-  'from-indigo-500',
-  'from-blue-500',
-  'from-green-500',
-  'from-yellow-500',
-  'from-purple-500',
-  'from-pink-500',
-  'from-orange-500',
-  'from-red-500',
+  "from-indigo-500",
+  "from-blue-500",
+  "from-green-500",
+  "from-yellow-500",
+  "from-purple-500",
+  "from-pink-500",
+  "from-orange-500",
+  "from-red-500",
 ];
 
 export default function Home() {
@@ -58,7 +59,7 @@ export default function Home() {
       .then((data) => {
         setPlaylist(data.body);
       })
-      .catch((err) => console.error('something went wrong', err));
+      .catch((err) => console.error("something went wrong", err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyApi, playlistId]);
 
@@ -72,19 +73,18 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Spotify - Library</title>
-        <meta name='description' content='A spotify clone made with Next.js' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <title>Spotify - Your Library</title>
+        <meta name="description" content="A spotify clone made with Next.js" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className='h-screen overflow-hidden'>
-        <div className='center flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]'>
-          <header className='absolute top-5 right-8'>
+      <div className="h-screen overflow-hidden">
+        <div className="center flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]">
+          <header className="absolute top-5 right-8 z-20">
             <div
-              className='flex items-center bg-[#121212] space-x-2  cursor-pointer rounded pl-3 p-2 text-white m-1 text-sm hover:opacity-80'
+              className="flex items-center bg-[#121212] space-x-2  cursor-pointer rounded pl-3 p-2 text-white m-1 text-sm hover:opacity-80"
               onClick={() => signOut()}
             >
-              <p>Log out</p>
-              <LogoutIcon className='h-5 w-5 hover:scale-110' />
+              Log out <LogoutIcon className=" pl-1 h-5 w-5 hover:scale-110" />
             </div>
           </header>
 
@@ -92,27 +92,27 @@ export default function Home() {
             className={`space-y-5 bg-[#202020] h-60   text-white p-8  `}
             style={{
               backgroundImage: isMobile && `url(${backgroundImageUrl.url})`,
-              backgroundSize: 'cover',
+              backgroundSize: "cover",
             }}
           >
-            <div className='pt-9 md:pt-0'>
-              <div className='space-y-4 flex'>
-                <div className=''>
+            <div className="pt-9 md:pt-0">
+              <div className="space-y-4 flex">
+                <div className="">
                   <Image
                     src={session?.user.image}
                     width={176}
                     height={176}
-                    className=' hidden md:block rounded-full m-auto shadow-2xl'
+                    className=" hidden md:block rounded-full m-auto shadow-2xl"
                     aspectRatio={1 / 1}
-                    alt='User'
+                    alt="User"
                   />
                 </div>
 
-                <div className=' sm:mt-7 md:pl-10 '>
-                  <h2 className='text-6xl lg:text-8xl font-bold '>
+                <div className=" sm:mt-7 md:pl-10 ">
+                  <h2 className="text-6xl lg:text-8xl font-bold ">
                     Your Library
                   </h2>
-                  <p className='text-xs opacity-70'>
+                  <p className="text-xs opacity-70">
                     All your {playlists?.length} favorite playlists from Spotify
                   </p>
                 </div>
@@ -120,55 +120,52 @@ export default function Home() {
             </div>
           </section>
 
-          <div>
-            <div className='px-1 md:px-8 flex flex-col pb-28 space-y-1 text-white'>
-              {playlists?.map((playlist, order) => (
-                <Link
-                  href={`/playlist/${playlist.id}`}
-                  key={playlist.id}
-                  onClick={() => setPlaylistId(playlist.id)}
-                >
-                  <div className='grid grid-cols-5 text-gray-500 py-4 px-5 hover:bg-[#282828] rounded-lg cursor-pointer'>
-                    <div className='flex items-center truncate space-x-4 col-span-4'>
-                      <p>{order + 1}</p>
-                      <Image
-                        src={playlist.images[0].url}
-                        width={44}
-                        height={44}
-                        alt={playlist.name}
-                        className='shadow-2xl'
-                      />
-                      <div>
-                        <p className='w-36 lg:w-64 text-white truncate'>
-                          {' '}
-                          {playlist.name}
-                        </p>
-                        <p className='truncate'>
-                          by{' '}
-                          {playlist.owner.display_name &&
-                            playlist.owner.display_name.toLowerCase()}
-                        </p>
+          <>
+            <div className="">
+              <div className="row">
+                {playlists?.map((playlist) => (
+                  <div className="col d-flex align-items-center justify-content-center ">
+                    <Link
+                      href={`/playlist/${playlist.id}`}
+                      key={playlist.id}
+                      onClick={() => setPlaylistId(playlist.id)}
+                    >
+                      <div className="card">
+                        <div className="text-gray-500">
+                          <Image
+                            src={playlist.images[0].url}
+                            width={244}
+                            height={244}
+                            alt={playlist.name}
+                            className="card--img shadow-2xl"
+                          />
+                          <div className="card--text truncate  cursor-pointer mt-3">
+                            <p className="w-36 lg:w-64 text-white font-bold m-0">
+                              {" "}
+                              {playlist.name}
+                            </p>
+                            <p className="">
+                              by{" "}
+                              {playlist.owner.display_name &&
+                                playlist.owner.display_name.toLowerCase()}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-
-                    <div className='flex mr-auto md:ml-0 text-sm col-span-1'>
-                      <p className='w-40 hidden md:inline truncate'>
-                        {playlist?.tracks.total} songs
-                      </p>
-                    </div>
+                    </Link>
                   </div>
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-        {/* Default Player */}
-        <Player />
+          </>
+          {/* Default Player */}
+          <Player />
 
-        {/* WebPack Player */}
-        {/* <div>
+          {/* WebPack Player */}
+          {/* <div>
           <WebPackPlayer />
         </div> */}
+        </div>
       </div>
     </>
   );
