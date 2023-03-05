@@ -21,13 +21,13 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Figtree", sans-serif !important;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: 'Figtree', sans-serif !important;
 
   /* Disable dragging elements */
   user-drag: none;
@@ -46,7 +46,28 @@ body {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin-bottom: 0 !important;
+}
+
+.temporary-bounce {
+  -webkit-animation-iteration-count: 2.5;
+  animation-iteration-count: 2.5;
 }
 
 .transparent {
@@ -55,4 +76,26 @@ a {
   backdrop-filter: blur(0.175rem) !important;
   -webkit-backdrop-filter: blur(0.175rem) !important;
   border: 0.0625rem solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.card {
+  position: relative;
+  padding: 1.2rem;
+  width: 12rem;
+  max-height: 25rem;
+  border-radius: 1rem !important;
+  display: inline-block !important;
+  margin: 1rem;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.12) !important;
+  background-color: #181818 !important;
+}
+
+.card:hover {
+  background-color: #282828 !important;
+}
+
+.card--img {
+  position: relative;
+  width: 100%;
+  border-radius: 0.5rem;
 }
