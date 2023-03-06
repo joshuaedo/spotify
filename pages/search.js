@@ -51,8 +51,9 @@ export default function Search() {
           <Header />
           <Sidebar className="w-[15%]" />
           <div className="center w-[100%] md:w-[85%] h-screen overflow-y-scroll scrollbar-hide bg-[#121212]">
-            <section className={`space-y-5 bg-[#202020] h-35 text-white p-8`}>
+            <section className={`space-y-5 bg-[#202020] h-30 text-white p-8`}>
               <div className="pt-9 md:pt-0">
+                <div className="p-2 font-bold text-2xl">Search</div>
                 <div className="space-y-4 flex">
                   <Form.Control
                     type="search"

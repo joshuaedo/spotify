@@ -6,7 +6,12 @@ import { isPlayingState } from "@/atom/songAtom";
 import Image from "next/image";
 import useSongInfo from "@/hooks/useSongInfo";
 import { playerIcons } from "./playerIcons";
-import { PauseIcon, PlayIcon, VolumeOffIcon } from "@heroicons/react/outline";
+import {
+  PauseIcon,
+  PlayIcon,
+  VolumeOffIcon,
+  ShareIcon,
+} from "@heroicons/react/outline";
 import MediaShare from "./MediaShare";
 import { motion } from "framer-motion";
 import { debounce } from "lodash";
@@ -217,22 +222,11 @@ export default function Player() {
                   onClick={toggleLike}
                 />
               )}
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
+              <ShareIcon
                 className="button res-icon"
                 onClick={toggleMediaShare}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"
-                />
-              </svg>
+              />
+
               <div className="absolute inset-y-5 right-2 flex md:hidden">
                 {isPlaying ? (
                   <PauseIcon

@@ -4,12 +4,6 @@ import Sidebar from "@/components/Sidebar";
 import Player from "@/components/Player";
 import Header from "@/components/Header";
 import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  LogoutIcon,
-} from "@heroicons/react/solid";
 import { useState, useEffect } from "react";
 import { shuffle } from "lodash";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -22,6 +16,9 @@ import Favorite from "assets/icons/favorite.png";
 import Play from "assets/icons/play.png";
 import { isPlayingState } from "@/atom/songAtom";
 import useSongInfo from "@/hooks/useSongInfo";
+import { ShareIcon } from "@heroicons/react/outline";
+import MediaShare from "@/components/MediaShare";
+import { motion } from "framer-motion";
 // import WebPackPlayer from '@/components/WebPackPlayer';
 
 export default function Playlist() {
@@ -44,6 +41,11 @@ export default function Playlist() {
   const isMobile = width <= 767;
   const songInfo = useSongInfo();
   const [pageTitle, setPageTitle] = useState(songInfo?.album.name);
+  const [isMediaShare, setIsMediaShare] = useState(false);
+  const toggleMediaShare = () => {
+    setIsMediaShare(!isMediaShare);
+  };
+
   const playPlaylist = () => {
     spotifyApi.play({
       context_uri: `https://open.spotify.com/playlist/${playlist.id}`,
@@ -78,6 +80,7 @@ export default function Playlist() {
         <meta name="description" content="A spotify clone made with Next.js" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+
       <div className="h-screen overflow-hidden">
         <Header />
         <main className="flex">
@@ -99,7 +102,7 @@ export default function Playlist() {
                 src={playlist?.images?.[0].url}
                 width={220}
                 height={220}
-                className="shadow-2xl mr-4 hidden md:block rounded"
+                className="mr-4 hidden md:block rounded shaddy"
                 alt=""
               />
 
@@ -129,22 +132,27 @@ export default function Playlist() {
             </section>
 
             <div>
-              <div className="flex space-x-4 md:space-x-6 items-center">
+              <div className="flex space-x-4 md:space-x-6 items-center px-8">
                 <Image
                   src={Play}
+                  width={220}
+                  height={220}
                   alt="Playlist"
-                  className="cursor-pointer animate-bounce temporary-bounce"
+                  className="m-3 w-12 h-12 cursor-pointer animate-bounce temporary-bounce shaddy"
                   onClick={playPlaylist}
                 />
                 <Image
                   src={Favorite}
+                  width={220}
+                  height={220}
                   alt="Favorite"
                   contain="true"
-                  className="w-10 h-10 hidden md:inline"
+                  className="w-10 h-10 m-3 shaddy"
                 />
-                <span className="text-2xl md:text-5xl text-gray-500 pb-5 hover:text-white hidden md:inline">
-                  ...
-                </span>
+                <ShareIcon
+                  className="w-10 h-10 m-3 shaddy text-gray-300 hover:text-white"
+                  onClick={toggleMediaShare}
+                />
                 {/* Songs */}
               </div>
               <Songs />
@@ -153,6 +161,22 @@ export default function Playlist() {
         </main>
 
         {/* Default Player */}
+        {/* Share on Social Media Screen */}
+        {isMediaShare && (
+          <motion.div
+            className="fixed inset-x-0 bottom-0 bg-black z-20"
+            initial={{
+              opacity: 0,
+              y: -50,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+          >
+            <MediaShare toggleMediaShare={toggleMediaShare} />
+          </motion.div>
+        )}
         <Player />
 
         {/* WebPack Player */}
