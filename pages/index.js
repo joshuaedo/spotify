@@ -124,10 +124,12 @@ export default function Home() {
             <div className="">
               <div className="row">
                 {playlists?.map((playlist) => (
-                  <div className="col d-flex align-items-center justify-content-center ">
+                  <div
+                    className="col d-flex align-items-center justify-content-center "
+                    key={playlist.id}
+                  >
                     <Link
                       href={`/playlist/${playlist.id}`}
-                      key={playlist.id}
                       onClick={() => setPlaylistId(playlist.id)}
                     >
                       <div className="card">
