@@ -99,3 +99,18 @@ pre {
   width: 100%;
   border-radius: 0.5rem;
 }
+
+.search--input {
+  border-radius: 20px !important;
+  width: 20rem !important;
+}
+
+.search--input::-webkit-input-placeholder {
+  font-size: small;
+  font-family: "Figtree", sans-serif !important;
+  padding: 1rem;
+}
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

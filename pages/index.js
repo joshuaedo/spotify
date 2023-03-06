@@ -7,11 +7,12 @@ import { shuffle } from "lodash";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { playlistIdState, playlistState } from "@/atom/playlistAtom";
 import useSpotify from "@/hooks/useSpotify";
-import { LogoutIcon } from "@heroicons/react/outline";
 import useDeviceSize from "@/hooks/useDeviceSize";
 import Link from "next/link";
 import Player from "@/components/Player";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 // import WebPackPlayer from '@/components/WebPackPlayer';
 
 const colors = [
@@ -30,12 +31,6 @@ export default function Home() {
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
 
   const [playlist, setPlaylist] = useRecoilState(playlistState);
-
-  const [showDiv, setShowDiv] = useState(false);
-
-  const toggleDiv = () => {
-    setShowDiv(!showDiv);
-  };
 
   const { data: session } = useSession();
   const spotifyApi = useSpotify();
@@ -77,97 +72,96 @@ export default function Home() {
         <meta name="description" content="A spotify clone made with Next.js" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className="h-screen overflow-hidden">
-        <div className="center flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]">
-          <header className="absolute top-5 right-8 z-20">
-            <div
-              className="flex items-center bg-[#121212] space-x-2  cursor-pointer rounded pl-3 p-2 text-white m-1 text-sm hover:opacity-80"
-              onClick={() => signOut()}
+
+      <div className="">
+        <main className=" h-screen overflow-hidden flex flex-row">
+          <Header />
+          {/* Sidebar */}
+          <Sidebar className="w-[15%]" />
+          <div className="center w-[100%] md:w-[85%] h-screen overflow-y-scroll scrollbar-hide bg-[#121212]">
+            <section
+              className={`space-y-5 bg-[#202020] h-60   text-white p-8  `}
+              style={{
+                backgroundImage: isMobile && `url(${backgroundImageUrl.url})`,
+                backgroundSize: "cover",
+              }}
             >
-              Log out <LogoutIcon className=" pl-1 h-5 w-5 hover:scale-110" />
-            </div>
-          </header>
+              <div className="pt-9 md:pt-0">
+                <div className="space-y-4 flex">
+                  <div className="">
+                    <Image
+                      src={session?.user.image}
+                      width={176}
+                      height={176}
+                      className=" hidden md:block rounded-full m-auto shadow-2xl"
+                      aspectRatio={1 / 1}
+                      alt="User"
+                    />
+                  </div>
 
-          <section
-            className={`space-y-5 bg-[#202020] h-60   text-white p-8  `}
-            style={{
-              backgroundImage: isMobile && `url(${backgroundImageUrl.url})`,
-              backgroundSize: "cover",
-            }}
-          >
-            <div className="pt-9 md:pt-0">
-              <div className="space-y-4 flex">
-                <div className="">
-                  <Image
-                    src={session?.user.image}
-                    width={176}
-                    height={176}
-                    className=" hidden md:block rounded-full m-auto shadow-2xl"
-                    aspectRatio={1 / 1}
-                    alt="User"
-                  />
-                </div>
-
-                <div className=" sm:mt-7 md:pl-10 ">
-                  <h2 className="text-6xl lg:text-8xl font-bold ">
-                    Your Library
-                  </h2>
-                  <p className="text-xs opacity-70">
-                    All your {playlists?.length} favorite playlists from Spotify
-                  </p>
+                  <div className=" sm:mt-7 md:pl-10 ">
+                    <h2 className="text-6xl xl:text-8xl font-bold ">
+                      Your Library
+                    </h2>
+                    <p className="text-xs opacity-70">
+                      All your {playlists?.length} favorite playlists from
+                      Spotify
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <>
-            <div className="">
-              <div className="row">
-                {playlists?.map((playlist) => (
-                  <div
-                    className="col d-flex align-items-center justify-content-center "
-                    key={playlist.id}
-                  >
-                    <Link
-                      href={`/playlist/${playlist.id}`}
-                      onClick={() => setPlaylistId(playlist.id)}
+            <>
+              <div className="">
+                <div className="row">
+                  {playlists?.map((playlist) => (
+                    <div
+                      className="col d-flex align-items-center justify-content-center "
+                      key={playlist.id}
                     >
-                      <div className="card">
-                        <div className="text-gray-500">
-                          <Image
-                            src={playlist.images[0].url}
-                            width={244}
-                            height={244}
-                            alt={playlist.name}
-                            className="card--img shadow-2xl"
-                          />
-                          <div className="card--text truncate  cursor-pointer mt-3">
-                            <p className="w-36 lg:w-64 text-white font-bold m-0">
-                              {" "}
-                              {playlist.name}
-                            </p>
-                            <p className="">
-                              by{" "}
-                              {playlist.owner.display_name &&
-                                playlist.owner.display_name.toLowerCase()}
-                            </p>
+                      <Link
+                        href={`/playlist/${playlist.id}`}
+                        onClick={() => setPlaylistId(playlist.id)}
+                      >
+                        <div className="card">
+                          <div className="text-gray-500">
+                            <Image
+                              src={playlist.images[0].url}
+                              width={244}
+                              height={244}
+                              alt={playlist.name}
+                              className="card--img shadow-2xl"
+                            />
+                            <div className="card--text truncate  cursor-pointer mt-3">
+                              <p className="w-36 lg:w-64 text-white font-bold m-0">
+                                {" "}
+                                {playlist.name}
+                              </p>
+                              <p className="">
+                                by{" "}
+                                {playlist.owner.display_name &&
+                                  playlist.owner.display_name.toLowerCase()}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </>
-          {/* Default Player */}
-          <Player />
+            </>
 
-          {/* WebPack Player */}
-          {/* <div>
+            {/* Default Player */}
+
+            {/* WebPack Player */}
+            {/* <div>
           <WebPackPlayer />
         </div> */}
-        </div>
+          </div>
+        </main>
+        <Player />
       </div>
     </>
   );

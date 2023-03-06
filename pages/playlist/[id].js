@@ -2,6 +2,7 @@
 import { getSession } from "next-auth/react";
 import Sidebar from "@/components/Sidebar";
 import Player from "@/components/Player";
+import Header from "@/components/Header";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import {
@@ -17,11 +18,8 @@ import useSpotify from "@/hooks/useSpotify";
 import Songs from "@/components/Songs";
 import useDeviceSize from "@/hooks/useDeviceSize";
 import Head from "next/head";
-import LibraryIcon from "assets/images/image.webp";
 import Favorite from "assets/icons/favorite.png";
 import Play from "assets/icons/play.png";
-import Link from "next/link";
-import { motion } from "framer-motion";
 import { isPlayingState } from "@/atom/songAtom";
 import useSongInfo from "@/hooks/useSongInfo";
 // import WebPackPlayer from '@/components/WebPackPlayer';
@@ -37,7 +35,6 @@ export default function Playlist() {
     "from-orange-500",
     "from-red-500",
   ];
-  const { data: session } = useSession();
   const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
   const playlistId = useRecoilValue(playlistIdState);
@@ -47,11 +44,6 @@ export default function Playlist() {
   const isMobile = width <= 767;
   const songInfo = useSongInfo();
   const [pageTitle, setPageTitle] = useState(songInfo?.album.name);
-  const [showDiv, setShowDiv] = useState(false);
-
-  const toggleDiv = () => {
-    setShowDiv(!showDiv);
-  };
   const playPlaylist = () => {
     spotifyApi.play({
       context_uri: `https://open.spotify.com/playlist/${playlist.id}`,
@@ -87,76 +79,12 @@ export default function Playlist() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="h-screen overflow-hidden">
+        <Header />
         <main className="flex">
           {/* Sidebar */}
           <Sidebar />
           <div className="center flex-grow h-screen overflow-y-scroll scrollbar-hide bg-[#121212]">
             {/* Drop-Down Toggle Menu */}
-            <header className="absolute top-3 right-3">
-              <div className="flex items-center bg-black space-x-3  cursor-pointer rounded-full p-1 pr-2 text-white font-bold">
-                <Image
-                  src={session?.user.image}
-                  width={27}
-                  height={27}
-                  alt="User"
-                  className="rounded-full"
-                />
-                <p>{session?.user.name}</p>
-
-                {showDiv ? (
-                  <ChevronUpIcon
-                    className="h-5 w-5 opacity-90 hover:opacity-60"
-                    onClick={toggleDiv}
-                  />
-                ) : (
-                  <ChevronDownIcon
-                    className="h-5 w-5 opacity-90 hover:opacity-60"
-                    onClick={toggleDiv}
-                  />
-                )}
-              </div>
-              {showDiv && (
-                <>
-                  <motion.div
-                    className=" bg-black space-y-2  cursor-pointer rounded p-2 text-white m-1 text-sm "
-                    initial={{
-                      opacity: 0,
-                      y: 50,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                  >
-                    <div>
-                      <Link
-                        href="/"
-                        className="hover:opacity-90 flex text-white "
-                      >
-                        <button className="flex items-center space-x-2  font-bold">
-                          <span>Library</span>
-                          <div className="h-6 w-6">
-                            <Image
-                              src={LibraryIcon}
-                              width={24}
-                              height={24}
-                              alt="Link to your library"
-                            />
-                          </div>
-                        </button>
-                      </Link>
-                    </div>
-                    <hr className="pr-5" />
-                    <div className="flex items-center space-x-2  font-bold hover:opacity-90">
-                      <p>Log out</p>
-                      <div className="h-6 w-6 pr-5" onClick={() => signOut()}>
-                        <LogoutIcon width={24} height={24} alt="Log Out" />
-                      </div>
-                    </div>
-                  </motion.div>
-                </>
-              )}
-            </header>
 
             {/* Hero */}
             <section
