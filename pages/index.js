@@ -7,12 +7,12 @@ import { shuffle } from "lodash";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { playlistIdState, playlistState } from "@/atom/playlistAtom";
 import useSpotify from "@/hooks/useSpotify";
-import { LogoutIcon } from "@heroicons/react/outline";
 import useDeviceSize from "@/hooks/useDeviceSize";
 import Link from "next/link";
 import Player from "@/components/Player";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 // import WebPackPlayer from '@/components/WebPackPlayer';
 
 const colors = [
@@ -31,12 +31,6 @@ export default function Home() {
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
 
   const [playlist, setPlaylist] = useRecoilState(playlistState);
-
-  const [showDiv, setShowDiv] = useState(false);
-
-  const toggleDiv = () => {
-    setShowDiv(!showDiv);
-  };
 
   const { data: session } = useSession();
   const spotifyApi = useSpotify();
@@ -81,20 +75,10 @@ export default function Home() {
 
       <div className="">
         <main className=" h-screen overflow-hidden flex flex-row">
+          <Header />
           {/* Sidebar */}
           <Sidebar className="w-[15%]" />
           <div className="center w-[100%] md:w-[85%] h-screen overflow-y-scroll scrollbar-hide bg-[#121212]">
-            {/* Drop-Down Toggle Menu */}
-
-            <header className="absolute top-5 right-8 z-20">
-              <div
-                className="flex items-center bg-[#121212] space-x-2  cursor-pointer rounded pl-3 p-2 text-white m-1 text-sm hover:opacity-80"
-                onClick={() => signOut()}
-              >
-                Log out <LogoutIcon className=" pl-1 h-5 w-5 hover:scale-110" />
-              </div>
-            </header>
-
             <section
               className={`space-y-5 bg-[#202020] h-60   text-white p-8  `}
               style={{
@@ -170,7 +154,6 @@ export default function Home() {
             </>
 
             {/* Default Player */}
-            <Player />
 
             {/* WebPack Player */}
             {/* <div>
@@ -178,6 +161,7 @@ export default function Home() {
         </div> */}
           </div>
         </main>
+        <Player />
       </div>
     </>
   );
