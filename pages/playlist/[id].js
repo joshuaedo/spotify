@@ -14,6 +14,7 @@ import useDeviceSize from "@/hooks/useDeviceSize";
 import Head from "next/head";
 import Favorite from "assets/icons/favorite.png";
 import Play from "assets/icons/play.png";
+import Pause from "assets/icons/pause.png";
 import { isPlayingState } from "@/atom/songAtom";
 import useSongInfo from "@/hooks/useSongInfo";
 import { ShareIcon } from "@heroicons/react/outline";
@@ -51,6 +52,11 @@ export default function Playlist() {
       context_uri: `https://open.spotify.com/playlist/${playlist.id}`,
     });
     setIsPlaying(true);
+  };
+
+  const pausePlaylist = () => {
+    spotifyApi.pause();
+    setIsPlaying(false);
   };
 
   useEffect(() => {
@@ -133,14 +139,26 @@ export default function Playlist() {
 
             <div>
               <div className="flex space-x-4 md:space-x-6 items-center px-8">
-                <Image
-                  src={Play}
-                  width={220}
-                  height={220}
-                  alt="Playlist"
-                  className="m-3 w-12 h-12 cursor-pointer animate-bounce temporary-bounce shaddy"
-                  onClick={playPlaylist}
-                />
+                {isPlaying ? (
+                  <Image
+                    src={Pause}
+                    width={220}
+                    height={220}
+                    alt="Pause Playlist"
+                    className="m-3 w-12 h-12 cursor-pointer animate-bounce temporary-bounce shaddy"
+                    onClick={pausePlaylist}
+                  />
+                ) : (
+                  <Image
+                    src={Play}
+                    width={220}
+                    height={220}
+                    alt="Play Playlist"
+                    className="m-3 w-12 h-12 cursor-pointer animate-bounce temporary-bounce shaddy"
+                    onClick={playPlaylist}
+                  />
+                )}
+
                 <Image
                   src={Favorite}
                   width={220}
