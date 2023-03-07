@@ -103,54 +103,60 @@ export default function Home() {
                     <h2 className="text-6xl xl:text-8xl font-bold ">
                       Your Library
                     </h2>
-                    <p className="text-xs opacity-70">
-                      All your {playlists?.length} favorite playlists from
-                      Spotify
-                    </p>
+                    {playlists && (
+                      <p className="text-xs opacity-70">
+                        All your {playlists?.length} favorite playlists from
+                        Spotify
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
             </section>
 
             <>
-              <div className="">
-                <div className="row">
-                  {playlists?.map((playlist) => (
-                    <div
-                      className="col d-flex align-items-center justify-content-center "
-                      key={playlist.id}
-                    >
-                      <Link
-                        href={`/playlist/${playlist.id}`}
-                        onClick={() => setPlaylistId(playlist.id)}
+              {playlists ? (
+                <div className="">
+                  <div className="row pb-24">
+                    {playlists?.map((playlist) => (
+                      <div
+                        className="col d-flex align-items-center justify-content-center "
+                        key={playlist.id}
                       >
-                        <div className="card">
-                          <div className="text-gray-500">
-                            <Image
-                              src={playlist.images[0].url}
-                              width={244}
-                              height={244}
-                              alt={playlist.name}
-                              className="card--img shadow-2xl"
-                            />
-                            <div className="card--text truncate  cursor-pointer mt-3">
-                              <p className="w-36 lg:w-64 text-white font-bold m-0">
-                                {" "}
-                                {playlist.name}
-                              </p>
-                              <p className="">
-                                by{" "}
-                                {playlist.owner.display_name &&
-                                  playlist.owner.display_name.toLowerCase()}
-                              </p>
+                        <Link
+                          href={`/playlist/${playlist.id}`}
+                          onClick={() => setPlaylistId(playlist.id)}
+                        >
+                          <div className="card">
+                            <div className="text-gray-500">
+                              <Image
+                                src={playlist.images[0].url}
+                                width={244}
+                                height={244}
+                                alt={playlist.name}
+                                className="card--img shadow-2xl"
+                              />
+                              <div className="card--text truncate  cursor-pointer mt-3">
+                                <p className="w-36 lg:w-64 text-white font-bold m-0">
+                                  {" "}
+                                  {playlist.name}
+                                </p>
+                                <p className="">
+                                  by{" "}
+                                  {playlist.owner.display_name &&
+                                    playlist.owner.display_name.toLowerCase()}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <p>Don&apos;t have any saved playlists? Try the search page</p>
+              )}
             </>
 
             {/* Default Player */}

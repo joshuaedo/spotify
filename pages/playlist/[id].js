@@ -150,7 +150,7 @@ export default function Playlist() {
                   className="w-10 h-10 m-3 shaddy"
                 />
                 <ShareIcon
-                  className="w-10 h-10 m-3 shaddy text-gray-300 hover:text-white"
+                  className="w-10 h-10 m-3 shaddy text-gray-300 hover:text-white cursor-pointer"
                   onClick={toggleMediaShare}
                 />
                 {/* Songs */}

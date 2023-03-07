@@ -21,6 +21,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { playlistIdState, playlistState } from "@/atom/playlistAtom";
 import FullPlayer from "./FullPlayer";
 import Lyrics from "./Lyrics";
+import TwitterLike from "@/components/TwitterLike";
 
 export default function Player() {
   const colors = [
@@ -56,9 +57,9 @@ export default function Player() {
   const [pageTitle, setPageTitle] = useState(songInfo?.album.name);
   const [currentTrackId, setCurrentTrackId] =
     useRecoilState(currentTrackIdState);
-  const [volume, setVolume] = useState(50);
+  const [volume, setVolume] = useState(100);
 
-  const [showLike, setShowLike] = useState(false);
+  // const [showLike, setShowLike] = useState(false);
 
   const debouncedAdjustVolume = useCallback(
     debounce((volume) => {
@@ -110,9 +111,9 @@ export default function Player() {
     });
   };
 
-  const toggleLike = () => {
-    setShowLike(!showLike);
-  };
+  // const toggleLike = () => {
+  //   setShowLike(!showLike);
+  // };
   const fetchCurrentSong = () => {
     spotifyApi.getMyCurrentPlayingTrack().then((data) => {
       setCurrentTrackId(data.body?.item.id);
@@ -161,7 +162,7 @@ export default function Player() {
 
       {/* Fullscreen Player */}
       {isFullScreen && (
-        <div className="fixed inset-0 bg-[#121212] z-30 h-screen">
+        <div className="fixed inset-0 bg-[#121212] z-50 h-screen">
           <FullPlayer toggleFullScreen={toggleFullScreen} />
         </div>
       )}
@@ -207,11 +208,11 @@ export default function Player() {
                   {songInfo?.artists[0]?.name}
                 </p>
               </div>
-              {showLike ? (
+              {/* {showLike ? (
                 <Image
                   src={favorite}
                   alt="You just liked this song!"
-                  className="button res-icon motion-safe:animate-ping"
+                  className="button res-icon motion-safe:animate-ping 1s linear 1"
                   onClick={toggleLike}
                 />
               ) : (
@@ -221,7 +222,8 @@ export default function Player() {
                   className="button res-icon"
                   onClick={toggleLike}
                 />
-              )}
+              )} */}
+              <TwitterLike />
               <ShareIcon
                 className="button res-icon"
                 onClick={toggleMediaShare}
