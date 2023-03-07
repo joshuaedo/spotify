@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import { shuffle } from "lodash";
 import { useRecoilValue, useRecoilState } from "recoil";
 
-
 export default function FullPlayer(props) {
   const colors = [
     "from-indigo-500",
@@ -130,7 +129,7 @@ export default function FullPlayer(props) {
 
       <section>
         <div className="">
-          <div className="stay space-x-10 items-center justify-center p-3 m-1 mt-3">
+          <div className="stay space-x-10 items-center justify-center p-3 m-1 mt-3 ">
             <Image
               src={shuffleIcon}
               alt="shuffle"
