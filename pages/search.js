@@ -68,7 +68,7 @@ export default function Search() {
 
             <>
               <div className="">
-                <div className="row">
+                <div className="row pb-24">
                   {searchResults?.map((searchResults) => (
                     <div
                       className="col d-flex align-items-center justify-content-center "

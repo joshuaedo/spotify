@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { currentTrackIdState } from "@/atom/songAtom";
 import useSpotify from "@/hooks/useSpotify";
 import { useCallback, useEffect, useState } from "react";
 import { isPlayingState } from "@/atom/songAtom";
@@ -10,7 +9,7 @@ import { ChevronDownIcon, PauseIcon, PlayIcon } from "@heroicons/react/outline";
 import { motion } from "framer-motion";
 import { shuffle } from "lodash";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { playlistIdState, playlistState } from "@/atom/playlistAtom";
+
 
 export default function FullPlayer(props) {
   const colors = [
@@ -38,8 +37,6 @@ export default function FullPlayer(props) {
   ] = playerIcons;
   const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
-  const playlistId = useRecoilValue(playlistIdState);
-  const [playlist, setPlaylist] = useRecoilState(playlistState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const songInfo = useSongInfo();
   const handlePlayPause = () => {
