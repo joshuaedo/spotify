@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import { shuffle } from "lodash";
 import { useRecoilValue, useRecoilState } from "recoil";
 
-
 export default function FullPlayer(props) {
   const colors = [
     "from-indigo-500",
@@ -97,7 +96,7 @@ export default function FullPlayer(props) {
       </header>
 
       <section
-        className={`grid md:flex bg-gradient-to-b to-[#121212] ${color} text-white p-8 h-2/3 md:h-5/6`}
+        className={`grid md:flex bg-gradient-to-b to-[#121212] ${color} text-white p-8 h-2/3 md:h-3/4`}
       >
         <motion.div
           className="space-y-6 place-self-center md:place-self-end block md:flex mt-6 pt-6 md:mt-1 md:pt-1"
@@ -130,7 +129,7 @@ export default function FullPlayer(props) {
 
       <section>
         <div className="">
-          <div className="stay space-x-10 items-center justify-center p-3 m-1 mt-3">
+          <div className="stay space-x-10 items-center justify-center p-3 m-1 mt-3 ">
             <Image
               src={shuffleIcon}
               alt="shuffle"
