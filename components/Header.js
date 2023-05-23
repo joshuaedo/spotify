@@ -23,8 +23,7 @@ export default function Header() {
       <div className="flex items-center bg-black space-x-3  cursor-pointer rounded-full p-1 pr-2 text-white font-bold">
         {session?.user.image ? (
           <Image
-            src="https://i1.wp.com/similarpng.com/wp-content/plugins/userswp/assets/images/no_profile.png?ssl=1"
-            // src={session?.user.image}
+            src={session?.user.image}
             width={27}
             height={27}
             alt="User"
