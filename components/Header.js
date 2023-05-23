@@ -21,13 +21,24 @@ export default function Header() {
   return (
     <header className="absolute top-3 right-3 z-50">
       <div className="flex items-center bg-black space-x-3  cursor-pointer rounded-full p-1 pr-2 text-white font-bold">
-        <Image
-          src={session?.user.image}
-          width={27}
-          height={27}
-          alt="User"
-          className="rounded-full"
-        />
+        {session?.user.image ? (
+          <Image
+            src="https://i1.wp.com/similarpng.com/wp-content/plugins/userswp/assets/images/no_profile.png?ssl=1"
+            // src={session?.user.image}
+            width={27}
+            height={27}
+            alt="User"
+            className="rounded-full"
+          />
+        ) : (
+          <Image
+            src="https://i1.wp.com/similarpng.com/wp-content/plugins/userswp/assets/images/no_profile.png?ssl=1"
+            width={27}
+            height={27}
+            alt="User"
+            className="rounded-full"
+          />
+        )}
         <p>{session?.user.name}</p>
 
         {showDiv ? (
