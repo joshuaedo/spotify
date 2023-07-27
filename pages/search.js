@@ -41,8 +41,8 @@ export default function Search() {
   return (
     <>
       <Head>
-        <title>Spotify - Search</title>
-        <meta name="description" content="A spotify clone made with Next.js" />
+        <title>Stream - Search</title>
+        <meta name="description" content="Search for your favorite songs" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
