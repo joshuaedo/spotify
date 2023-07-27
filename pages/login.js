@@ -7,8 +7,8 @@ function login({ providers }) {
   return (
     <>
       <Head>
-        <title>Login to Spotify</title>
-        <meta name='description' content='Spotify clone login page' />
+        <title>Stream</title>
+        <meta name='description' content='Listen to any song, anywhere' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
       <div className='flex  flex-col items-center bg-black min-h-screen w-full justify-center'>
