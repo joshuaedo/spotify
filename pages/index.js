@@ -68,8 +68,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Spotify - Your Library</title>
-        <meta name="description" content="A spotify clone made with Next.js" />
+        <title>Stream - Your Library</title>
+        <meta name="description" content="Your Stream library " />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
