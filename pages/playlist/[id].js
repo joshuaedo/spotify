@@ -181,10 +181,10 @@ export default function Playlist() {
                   height={220}
                   alt="Favorite"
                   contain="true"
-                  className="w-7 h-7 md:w-10 h-10 m-3 shaddy"
+                  className="w-7 h-7 md:w-10 md:h-10 m-3 shaddy"
                 />
                 <ShareIcon
-                  className="w-7 h-7 md:w-10 h-10 m-3 shaddy text-gray-300 hover:text-white cursor-pointer"
+                  className="w-7 h-7 md:w-10 md:h-10 m-3 shaddy text-gray-300 hover:text-white cursor-pointer"
                   onClick={toggleMediaShare}
                 />
                 {/* Songs */}
