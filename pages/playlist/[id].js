@@ -82,9 +82,9 @@ export default function Playlist() {
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
+        <title>{pageTitle === "undefined • undefined" ? "Stream • Playlists" : pageTitle}</title>
         {/* OpenGraph */}
-        <meta property="og:title" content={pageTitle} />
+        <meta property="og:title" content={pageTitle === "undefined • undefined" ? "Stream • Playlists" : pageTitle} />
         <meta
           property="og:url"
           content="https://joshuaedo-spotify.vercel.app/"
@@ -95,7 +95,7 @@ export default function Playlist() {
         />
 
         {/* Twitter  */}
-        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:title" content={pageTitle === "undefined • undefined" ? "Stream • Playlists" : pageTitle} />
         <meta name="twitter:card" content="summary" />
         <meta
           name="twitter:image"
