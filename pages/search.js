@@ -41,9 +41,26 @@ export default function Search() {
   return (
     <>
       <Head>
-        <title>Stream - Search</title>
+        <title>Stream • Search</title>
         <meta name="description" content="Search for your favorite songs" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* OpenGraph */}
+        <meta property="og:title" content="Stream • Search" />
+        <meta
+          property="og:url"
+          content="https://joshuaedo-spotify.vercel.app/search"
+        />
+        <meta
+          property="og:image:url"
+          content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
+        />
+
+        {/* Twitter  */}
+        <meta name="twitter:title" content="Stream • Search" />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:image"
+          content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
+        />
       </Head>
 
       <div className="">

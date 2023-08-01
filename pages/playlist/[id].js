@@ -83,8 +83,24 @@ export default function Playlist() {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="A spotify clone made with Next.js" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* OpenGraph */}
+        <meta property="og:title" content={pageTitle} />
+        <meta
+          property="og:url"
+          content="https://joshuaedo-spotify.vercel.app/"
+        />
+        <meta
+          property="og:image:url"
+          content={playlist?.images?.[0].url}
+        />
+
+        {/* Twitter  */}
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:image"
+          content={playlist?.images?.[0].url}
+        />
       </Head>
 
       <div className="h-screen overflow-hidden">

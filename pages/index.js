@@ -60,9 +60,26 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Stream - Your Library</title>
+        <title>Stream • Your Library</title>
         <meta name="description" content="Your Stream library" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* OpenGraph */}
+        <meta property="og:title" content="Stream • Your Library" />
+        <meta
+          property="og:url"
+          content="https://joshuaedo-spotify.vercel.app/"
+        />
+        <meta
+          property="og:image:url"
+          content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
+        />
+
+        {/* Twitter  */}
+        <meta name="twitter:title" content="Stream • Your Library" />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:image"
+          content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
+        />
       </Head>
 
       <div className="">

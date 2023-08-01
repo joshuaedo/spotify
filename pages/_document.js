@@ -23,6 +23,10 @@ export default function Document() {
           name="twitter:description"
           content="Listen to any song, anywhere"
         />
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&f[]=stardom@400&f[]=bebas-neue@400&display=swap"
+          rel="stylesheet"
+        />
         <link rel="preconnect" href="https://sdk.scdn.co" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

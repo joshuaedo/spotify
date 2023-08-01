@@ -9,6 +9,24 @@ function login({ providers }) {
       <Head>
         <title>Stream</title>
         <meta name="description" content="Listen to any song, anywhere" />
+        {/* OpenGraph */}
+        <meta property="og:title" content="Stream • Your Library" />
+        <meta
+          property="og:url"
+          content="https://joshuaedo-spotify.vercel.app/"
+        />
+        <meta
+          property="og:image:url"
+          content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
+        />
+
+        {/* Twitter  */}
+        <meta name="twitter:title" content="Stream • Your Library" />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:image"
+          content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
+        />
       </Head>
       <div className="flex  flex-col items-center bg-black min-h-screen w-full justify-center">
         <Image
