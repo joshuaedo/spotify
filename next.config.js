@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
+      "newjams-images.scdn.co",
+      "images-ak.spotifycdn.com",
       "mosaic.scdn.co",
       "i.scdn.co",
       "api.spotify.com",

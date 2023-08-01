@@ -1,31 +1,30 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { getProviders, signIn } from 'next-auth/react';
-import spotifyLogo from 'assets/images/spotify.png';
+import Head from "next/head";
+import Image from "next/image";
+import { getProviders, signIn } from "next-auth/react";
+import spotifyLogo from "assets/images/spotify.png";
 
 function login({ providers }) {
   return (
     <>
       <Head>
         <title>Stream</title>
-        <meta name='description' content='Listen to any song, anywhere' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name="description" content="Listen to any song, anywhere" />
       </Head>
-      <div className='flex  flex-col items-center bg-black min-h-screen w-full justify-center'>
+      <div className="flex  flex-col items-center bg-black min-h-screen w-full justify-center">
         <Image
-          width={''}
-          height={''}
+          width={""}
+          height={""}
           src={spotifyLogo}
-          alt='spotify-logo'
-          className='w-52 mb-5'
+          alt="spotify-logo"
+          className="w-52 mb-5"
         />
 
         <div>
           <button
-            className='bg-[#13a34a] text-gray-200 p-5 rounded-full shadow-inner font-semibold hover:bg-[#13a33a]'
+            className="bg-[#13a34a] text-gray-200 p-5 rounded-full shadow-inner font-semibold hover:bg-[#13a33a]"
             onClick={() =>
-              signIn('spotify', {
-                callbackUrl: '/',
+              signIn("spotify", {
+                callbackUrl: "/",
               })
             }
           >

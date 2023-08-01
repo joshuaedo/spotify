@@ -1,13 +1,12 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { shuffle } from "lodash";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { playlistIdState, playlistState } from "@/atom/playlistAtom";
 import useSpotify from "@/hooks/useSpotify";
-import useDeviceSize from "@/hooks/useDeviceSize";
 import Link from "next/link";
 import Player from "@/components/Player";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -58,13 +57,6 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotifyApi, playlistId]);
 
-  const [width, height] = useDeviceSize();
-
-  const backgroundImageUrl = {
-    url: session?.user.image,
-  };
-
-  const isMobile = width <= 767;
   return (
     <>
       <Head>
@@ -81,24 +73,9 @@ export default function Home() {
           <div className="center w-[100%] md:w-[85%] h-screen overflow-y-scroll scrollbar-hide bg-[#121212]">
             <section
               className={`space-y-5 bg-[#202020] h-60   text-white p-8  `}
-              style={{
-                backgroundImage: isMobile && `url(${backgroundImageUrl.url})`,
-                backgroundSize: "cover",
-              }}
             >
               <div className="pt-9 md:pt-0">
                 <div className="space-y-4 flex">
-                  <div className="">
-                    <Image
-                      src={session?.user.image}
-                      width={176}
-                      height={176}
-                      className=" hidden md:block rounded-full m-auto shadow-2xl"
-                      aspectRatio={1 / 1}
-                      alt="User"
-                    />
-                  </div>
-
                   <div className=" sm:mt-7 md:pl-10 ">
                     <h2 className="text-6xl xl:text-8xl font-bold ">
                       Your Library
