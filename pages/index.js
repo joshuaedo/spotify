@@ -69,7 +69,7 @@ export default function Home() {
     <>
       <Head>
         <title>Stream - Your Library</title>
-        <meta name="description" content="Your Stream library " />
+        <meta name="description" content="Your Stream library" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
