@@ -8,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "@/components/Sidebar";
 import { Form } from "react-bootstrap";
 import Header from "@/components/Header";
-// import WebPackPlayer from '@/components/WebPackPlayer';
 
 export default function Search() {
   const spotifyApi = useSpotify();
@@ -31,7 +30,7 @@ export default function Search() {
             albumUrl: track?.album.images[0].url,
             id: track?.id,
           };
-        })
+        }),
       );
     });
 
@@ -121,14 +120,8 @@ export default function Search() {
                 </div>
               </div>
             </>
-
-            {/* WebPack Player */}
-            {/* <div>
-          <WebPackPlayer />
-        </div> */}
           </div>
         </main>
-        {/* Default Player */}
         <Player />
       </div>
     </>

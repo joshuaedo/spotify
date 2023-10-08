@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { HomeIcon, SearchIcon } from "@heroicons/react/solid";
+import { SearchIcon } from "@heroicons/react/solid";
 
 export default function Header() {
   const { data: session } = useSession();

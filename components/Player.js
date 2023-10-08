@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { isPlayingState } from "@/atom/songAtom";
 import Image from "next/image";
 import useSongInfo from "@/hooks/useSongInfo";
-import { playerIcons } from "./playerIcons";
+import playerIcons from "./playerIcons";
 import {
   PauseIcon,
   PlayIcon,
@@ -34,9 +34,8 @@ export default function Player() {
     "from-orange-500",
     "from-red-500",
   ];
-  const [
+  const {
     connectDevice,
-    like,
     next,
     previous,
     queue,
@@ -45,8 +44,7 @@ export default function Player() {
     volumeIcon,
     fullScreen,
     myLyrics,
-    favorite,
-  ] = playerIcons;
+  } = playerIcons;
   const { data: session } = useSession();
   const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
@@ -59,13 +57,11 @@ export default function Player() {
     useRecoilState(currentTrackIdState);
   const [volume, setVolume] = useState(100);
 
-  // const [showLike, setShowLike] = useState(false);
-
   const debouncedAdjustVolume = useCallback(
     debounce((volume) => {
       spotifyApi.setVolume(volume).catch((err) => {});
     }, 500),
-    []
+    [],
   );
   const [isFullScreen, setIsFullScreen] = useState(false);
   const toggleFullScreen = () => {
@@ -111,9 +107,6 @@ export default function Player() {
     });
   };
 
-  // const toggleLike = () => {
-  //   setShowLike(!showLike);
-  // };
   const fetchCurrentSong = () => {
     spotifyApi.getMyCurrentPlayingTrack().then((data) => {
       setCurrentTrackId(data.body?.item.id);
@@ -208,21 +201,6 @@ export default function Player() {
                   {songInfo?.artists[0]?.name}
                 </p>
               </div>
-              {/* {showLike ? (
-                <Image
-                  src={favorite}
-                  alt="You just liked this song!"
-                  className="button res-icon motion-safe:animate-ping 1s linear 1"
-                  onClick={toggleLike}
-                />
-              ) : (
-                <Image
-                  src={like}
-                  alt="like"
-                  className="button res-icon"
-                  onClick={toggleLike}
-                />
-              )} */}
               <TwitterLike />
               <ShareIcon
                 className="button res-icon"

@@ -12,7 +12,6 @@ import Player from "@/components/Player";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-// import WebPackPlayer from '@/components/WebPackPlayer';
 
 const colors = [
   "from-indigo-500",
@@ -152,13 +151,6 @@ export default function Home() {
                 <p>Don&apos;t have any saved playlists? Try the search page</p>
               )}
             </>
-
-            {/* Default Player */}
-
-            {/* WebPack Player */}
-            {/* <div>
-          <WebPackPlayer />
-        </div> */}
           </div>
         </main>
         <Player />

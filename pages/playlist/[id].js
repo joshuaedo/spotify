@@ -20,7 +20,6 @@ import useSongInfo from "@/hooks/useSongInfo";
 import { ShareIcon } from "@heroicons/react/outline";
 import MediaShare from "@/components/MediaShare";
 import { motion } from "framer-motion";
-// import WebPackPlayer from '@/components/WebPackPlayer';
 
 export default function Playlist() {
   const colors = [
@@ -82,25 +81,37 @@ export default function Playlist() {
   return (
     <>
       <Head>
-        <title>{pageTitle === "undefined • undefined" ? "Stream • Playlists" : pageTitle}</title>
+        <title>
+          {pageTitle === "undefined • undefined"
+            ? "Stream • Playlists"
+            : pageTitle}
+        </title>
         {/* OpenGraph */}
-        <meta property="og:title" content={pageTitle === "undefined • undefined" ? "Stream • Playlists" : pageTitle} />
+        <meta
+          property="og:title"
+          content={
+            pageTitle === "undefined • undefined"
+              ? "Stream • Playlists"
+              : pageTitle
+          }
+        />
         <meta
           property="og:url"
           content="https://joshuaedo-spotify.vercel.app/"
         />
-        <meta
-          property="og:image:url"
-          content={playlist?.images?.[0].url}
-        />
+        <meta property="og:image:url" content={playlist?.images?.[0].url} />
 
         {/* Twitter  */}
-        <meta name="twitter:title" content={pageTitle === "undefined • undefined" ? "Stream • Playlists" : pageTitle} />
-        <meta name="twitter:card" content="summary" />
         <meta
-          name="twitter:image"
-          content={playlist?.images?.[0].url}
+          name="twitter:title"
+          content={
+            pageTitle === "undefined • undefined"
+              ? "Stream • Playlists"
+              : pageTitle
+          }
         />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:image" content={playlist?.images?.[0].url} />
       </Head>
 
       <div className="h-screen overflow-hidden">
@@ -212,11 +223,6 @@ export default function Playlist() {
           </motion.div>
         )}
         <Player />
-
-        {/* WebPack Player */}
-        {/* <div>
-          <WebPackPlayer />
-        </div> */}
       </div>
     </>
   );

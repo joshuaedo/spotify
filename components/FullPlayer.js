@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import useSpotify from "@/hooks/useSpotify";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { isPlayingState } from "@/atom/songAtom";
 import Image from "next/image";
 import useSongInfo from "@/hooks/useSongInfo";
-import { playerIcons } from "./playerIcons";
+import playerIcons from "./playerIcons";
 import { ChevronDownIcon, PauseIcon, PlayIcon } from "@heroicons/react/outline";
 import { motion } from "framer-motion";
 import { shuffle } from "lodash";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 export default function FullPlayer(props) {
   const colors = [
@@ -21,19 +21,7 @@ export default function FullPlayer(props) {
     "from-orange-500",
     "from-red-500",
   ];
-  const [
-    connectDevice,
-    like,
-    next,
-    previous,
-    queue,
-    repeat,
-    shuffleIcon,
-    volumeIcon,
-    fullScreen,
-    myLyrics,
-    favorite,
-  ] = playerIcons;
+  const { next, previous, repeat, shuffleIcon, myLyrics } = playerIcons;
   const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
